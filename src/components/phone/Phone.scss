@@ -2,12 +2,12 @@
 @import '../../styles.scss';
 
 @mixin phone-buttons {
-  margin: 25px;
+  margin: 10px;
 }
 
 @mixin action-buttons {
   background-color: lightgray;
-  margin: 25px;
+  margin: 10px;
 }
 
 @mixin flex-container {
@@ -24,7 +24,7 @@
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  margin: 0px 165px 0 200px;
+  padding: 0 0 0 505px;
 }
 
 #incoming {
@@ -35,10 +35,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  flex-shrink: 0;
   align-items: center;
   transition: all 0.3s ease, opacity 0.2s ease;
-  height: 500px;
+  height: 320px;
   &.closed {
     visibility: hidden;
     opacity: 0;
@@ -46,19 +45,15 @@
   }
 }
 
-.statusLarge {
+.statusLarge{
   padding: 2px;
-  font-size: 40px;
+  font-size: 25px;
 }
 
 .dialpadButton {
   @include common-button;
   @include phone-buttons;
-  font-size: 2em;
-  &:active {
-    transition: none;
-    background-color: #b2c7f1;
-  }
+  font-size: 1.5em;
 }
 
 .dialpadButtonLetters {
@@ -83,23 +78,12 @@
   @include common-button;
   @include action-buttons;
   background-color: #ff6961;
-  &:active {
-    transition: none;
-    background-color: #fca09c;
-  }
 }
 
 .startCallButton {
   @include common-button;
   @include action-buttons;
-  transition: all 0.2s;
-  transition-delay: 300ms;
-
   background-color: #15c73b;
-  &:active {
-    transition: none;
-    background-color: #71c082;
-  }
 }
 
 .actionsContainer {

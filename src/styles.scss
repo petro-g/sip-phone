@@ -1,31 +1,19 @@
 @import './variables';
 
-//Detecting devices with hover enabled
-// @media (hover: hover) {
-//   button:hover {
-//     &:hover {
-//       opacity: 0.5;
-//     }
-//     transition: opacity 0.5s ease;
-//     &:focus {
-//       outline: none;
-//       box-shadow: none;
-//     }
-//   }
-// }
-
 @mixin common-button {
   border: 0;
   padding: 0;
   background: none;
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  transition: all 0.2s;
-  transition-delay: 300ms;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  transition: opacity 0.5s ease;
   &:focus {
     outline: none;
     box-shadow: none;
+  }
+  &:hover {
+    opacity: 0.5;
   }
   background-color: $primary-color;
   color: $almost-black;
@@ -52,5 +40,5 @@
   justify-content: flex-start;
   align-items: center;
   height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif
 }
