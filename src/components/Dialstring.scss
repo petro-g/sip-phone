@@ -14,11 +14,13 @@
   width: 60px;
   height: 60px;
   border-radius: 10px;
-  transition: all 0.2s;
-  transition-delay: 300ms;
+  transition: opacity 0.5s ease;
   &:focus {
     outline: none;
     box-shadow: none;
+  }
+  &:hover {
+    opacity: 0.5;
   }
   background-color: $primary-color;
   color: $almost-black;
@@ -32,10 +34,6 @@
   width: 100%;
   background: none;
   background-color: #15c73b;
-  &:active {
-    transition: none;
-    background-color: #8beb9f;
-  }
 }
 
 .dialInput {
