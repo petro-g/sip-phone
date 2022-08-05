@@ -1,5 +1,6 @@
 declare class ToneManager {
     currentTone: any;
+    constructor();
     playRing(type: string): void;
     stopAll(): void;
 }

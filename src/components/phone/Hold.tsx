@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import styles from './Phone.scss'
-// eslint-disable-next-line no-unused-vars
 import { Session, UserAgent } from 'sip.js'
-import { holdCallRequest, unHoldCallRequest } from '../../actions/sipSessions'
 
-const holdIcon = require('./assets/phone_paused-24px.svg')
+import holdIcon from '../../assets/phone_paused-24px.svg'
+
+import { holdCallRequest, unHoldCallRequest } from '../../actions/sipSessions'
 
 interface Props {
   session: Session
@@ -19,14 +19,11 @@ interface Props {
 class Hold extends React.Component<Props> {
   hold() {
     if (this.checkHoldState()) {
-      this.props.unHoldCallRequest(
-        this.props.session,
-        this.props.onHold,
-        this.props.sessions
-      )
+      this.props.unHoldCallRequest(this.props.session, this.props.onHold, this.props.sessions)
     } else {
       this.props.holdCallRequest(this.props.session)
     }
+    return
   }
 
   checkHoldState() {
@@ -35,11 +32,7 @@ class Hold extends React.Component<Props> {
 
   render() {
     return (
-      <button
-        className={this.checkHoldState() ? styles.on : ''}
-        id={styles.actionButton}
-        onClick={() => this.hold()}
-      >
+      <button className={this.checkHoldState() ? styles.on : ''} id={styles.actionButton} onClick={() => this.hold()}>
         <img src={holdIcon} />
       </button>
     )

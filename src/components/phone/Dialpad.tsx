@@ -6,7 +6,6 @@ import DialButton from './DialButton'
 import { Session, SessionState } from 'sip.js'
 import { getButtonLetters } from '../../util/buttons'
 import { playDTMF } from '../../util/TonePlayer'
-
 interface Props {
   open: boolean
   session: Session
@@ -81,5 +80,7 @@ class Dialpad extends React.Component<Props> {
 const mapStateToProps = (state: any) => ({
   deviceId: state.device.primaryAudioOutput
 })
-const actions = {}
+const actions = {
+
+}
 export default connect(mapStateToProps, actions)(Dialpad)

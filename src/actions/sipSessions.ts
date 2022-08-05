@@ -1,5 +1,5 @@
 import { Session, SessionState } from 'sip.js'
-import { Dispatch } from 'redux'
+import { Dispatch } from 'redux';
 
 export const NEW_SESSION = 'NEW_SESSION'
 export const NEW_ATTENDED_TRANSFER = 'NEW_ATTENDED_TRANSFER'
@@ -48,9 +48,7 @@ export const SIPSESSION_ATTENDED_TRANSFER_FAIL =
 export const SIPSESSION_ATTENDED_TRANSFER_SUCCESS =
   'SIPSESSION_ATTENDED_TRANSFER_SUCCESS'
 
-export const stateChange = (newState: SessionState, id: string) => (
-  dispatch: Dispatch
-) => {
+export const stateChange = (newState: SessionState, id: string) => (dispatch: Dispatch) => {
   dispatch({
     type: SIPSESSION_STATECHANGE,
     payload: { state: newState, id }
@@ -77,7 +75,10 @@ export const endCall = (sessionId: string) => {
 }
 
 export const holdCallRequest = (session: Session) => (dispatch: Dispatch) => {
-  if (!session.sessionDescriptionHandler || session.state !== SessionState.Established) {
+  if (
+    !session.sessionDescriptionHandler ||
+    session.state !== SessionState.Established
+  ) {
     return { type: SIPSESSION_HOLD_FAIL }
   }
   try {
@@ -93,15 +94,14 @@ export const holdCallRequest = (session: Session) => (dispatch: Dispatch) => {
   return
 }
 
-// maps thru onHold and sessions arrays looking for a call to put on hold before unHolding a call
-export const unHoldCallRequest = (
-  session: Session,
-  onHolds: Array<any>,
-  sessions: Array<any>
-) => (dispatch: Dispatch) => {
-  // checks for  established sessions that are not on hold
-  for (const [sessionId, _session] of Object.entries(sessions)) {
-    if (onHolds.indexOf(sessionId) < 0 && sessionId !== session.id && _session.state === 'Established') {
+//maps thru onHold and sessions arrays looking for a call to put on hold before unHolding a call 
+export const unHoldCallRequest = (session: Session, onHolds: Array<any>, sessions: Array<any>) => (dispatch: Dispatch) => {
+  //checks for  established sessions that are not on hold
+  for (let [sessionId, _session] of Object.entries(sessions)) {
+    if (
+      onHolds.indexOf(sessionId) < 0 &&
+      sessionId !== session.id && _session.state === 'Established'
+    ) {
       // hold session if not on hold
       try {
         _session.invite({
@@ -122,6 +122,7 @@ export const unHoldCallRequest = (
   } catch (err) {
     dispatch({ type: SIPSESSION_UNHOLD_FAIL })
   }
+  return;
 }
 
 export const blindTransferRequest = () => (dispatch: Dispatch) => {
@@ -148,9 +149,7 @@ export const attendedTransferRequest = () => (dispatch: Dispatch) => {
   })
 }
 
-export const attendedTransferCancel = (session: Session) => (
-  dispatch: Dispatch
-) => {
+export const attendedTransferCancel = (session: Session) => (dispatch: Dispatch) => {
   dispatch({
     type: SIPSESSION_ATTENDED_TRANSFER_CANCEL,
     payload: session
@@ -164,9 +163,7 @@ export const attendedTransferReady = () => (dispatch: Dispatch) => {
   })
 }
 
-export const attendedTransferPending = (session: Session) => (
-  dispatch: Dispatch
-) => {
+export const attendedTransferPending = (session: Session) => (dispatch: Dispatch) => {
   dispatch({
     type: SIPSESSION_ATTENDED_TRANSFER_PENDING,
     payload: session
@@ -219,3 +216,4 @@ export const unMuteFail = () => (dispatch: Dispatch) => {
     type: SIPSESSION_UNMUTE_FAIL
   })
 }
+
