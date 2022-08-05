@@ -20,3 +20,5 @@ export const defaultStore = createStore(
   composeWithDevTools(applyMiddleware(...middleware))
 )
 export const persistor = persistStore(defaultStore)
+
+

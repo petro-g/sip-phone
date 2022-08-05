@@ -30,8 +30,5 @@
     "react/jsx-fragments": 0,
     "react/no-unused-prop-types": 0,
     "import/export": 0
-    // "no-unused-vars": [
-    //   "off"
-    // ]
   }
 }

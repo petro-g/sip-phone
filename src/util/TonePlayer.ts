@@ -23,11 +23,11 @@ const Synth = Tone.PolySynth && new Tone.PolySynth(2, Tone.Synth)
 const FMSynth = Tone.PolySynth && new Tone.PolySynth(2, Tone.FMSynth)
 
 export const playDTMF = (key: any, deviceId: string) => {
-  const obj = DTMF_MATRIX[key]
+  let obj = DTMF_MATRIX[key]
   if (!obj) {
     console.log('invalid DTMF tone input')
   }
-  Synth.volume.value = -10
+  Synth.volume.value = -22
   Synth.set({
     oscillator: {
       type: 'sine'
@@ -42,16 +42,24 @@ export const playDTMF = (key: any, deviceId: string) => {
 
   if (deviceId !== 'default') {
     const mediaElement = document.getElementById('tone')
+
+
     if (mediaElement) {
-      const dest = Tone.context.createMediaStreamDestination()
+      let dest = Tone.context.createMediaStreamDestination()
       Synth.connect(dest)
       // @ts-ignore
-      mediaElement.setSinkId(deviceId).then(() => {
+      mediaElement.setSinkId(
+        // audio output device_id
+        deviceId
+      ).then(() => {
         // @ts-ignore
         mediaElement.srcObject = dest.stream
-        // @ts-ignore
+        //@ts-ignore
+
         mediaElement.play()
       })
+
+
     }
   } else {
     Synth.toMaster()
@@ -68,18 +76,27 @@ export const callDisconnect = (deviceId: string) => {
   if (deviceId !== 'default') {
     const mediaElement = document.getElementById('tone')
 
+
     if (mediaElement) {
-      const dest = Tone.context.createMediaStreamDestination()
+      let dest = Tone.context.createMediaStreamDestination()
       Synth.connect(dest)
       // @ts-ignore
-      mediaElement.setSinkId(deviceId).then(() => {
+      mediaElement.setSinkId(
+        // audio output device_id
+        deviceId
+      ).then(() => {
         // @ts-ignore
         mediaElement.srcObject = dest.stream
-        // @ts-ignore
+        //@ts-ignore
+
         mediaElement.play()
       })
+
+
     }
-  } else {
+
+  }
+  else {
     FMSynth.toMaster()
   }
 }
@@ -87,13 +104,18 @@ export const callDisconnect = (deviceId: string) => {
 class TonePlayer {
   private loop: any
 
-  // get audio element, set srcObj to device, and play the track
+
+  //get audio element, set srcObj to device, and play the track
   ringtone = (deviceId: string) => {
     const mediaElement = document.getElementById('ringtone')
     if (deviceId !== 'default') {
       if (mediaElement) {
         // @ts-ignore
-        mediaElement.setSinkId(deviceId).then(() => {
+        mediaElement.setSinkId(
+          // audio output device_id
+          // 'default'
+          deviceId
+        ).then(() => {
           // @ts-ignore
           mediaElement.play()
         })
@@ -104,10 +126,13 @@ class TonePlayer {
       // @ts-ignore
       mediaElement.play()
     }
+
+
+
   }
 
   ringback = (deviceId: string) => {
-    const dest = Tone.context.createMediaStreamDestination()
+    let dest = Tone.context.createMediaStreamDestination()
     console.log(dest)
     Synth.set({
       oscillator: {
@@ -123,13 +148,17 @@ class TonePlayer {
     if (deviceId !== 'default') {
       const mediaElement = document.getElementById('tone')
       if (mediaElement) {
-        const dest = Tone.context.createMediaStreamDestination()
+        let dest = Tone.context.createMediaStreamDestination()
         Synth.connect(dest)
         // @ts-ignore
-        mediaElement.setSinkId(deviceId).then(() => {
+        mediaElement.setSinkId(
+          // audio output device_id
+          deviceId
+        ).then(() => {
           // @ts-ignore
           mediaElement.srcObject = dest.stream
-          // @ts-ignore
+          //@ts-ignore
+
           mediaElement.play()
         })
       }
@@ -149,7 +178,7 @@ class TonePlayer {
     if (this.loop) {
       try {
         this.loop.stop(0)
-      } catch {
+      } catch{
         console.log('no loop to stop')
       }
     }
@@ -158,23 +187,22 @@ class TonePlayer {
       try {
         Tone.Transport.stop()
         Synth.triggerRelease([440, 480])
-      } catch {
+      } catch{
         console.log('no tone to stop')
       }
     }
 
     const mediaElement = document.getElementById('ringtone')
     if (mediaElement) {
-      // @ts-ignore
+      //@ts-ignore
       const promise = mediaElement.pause()
       if (promise !== undefined) {
-        promise
-          .catch((error: any) => {
-            console.log(error)
-          })
-          .then(() => {
-            console.log('ringtone stopped')
-          })
+        promise.catch((error: any) => {
+          console.log(error)
+
+        }).then(() => {
+          console.log('ringtone stopped')
+        });
       }
     }
   }
